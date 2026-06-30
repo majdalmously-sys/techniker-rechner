@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techniker Rechner</title>
 
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+    <h1>Techniker Rechner</h1>
+    <p>FTTH Tageserfassung</p>
+</header>
+
+<div class="container">
+
+    <input
+        id="search"
+        type="text"
+        placeholder="Tätigkeit suchen..."
+    >
+
+    <div id="jobList"></div>
+
+</div>
+
+<footer>
+
+    <div class="total">
+
+        <span>Gesamtsumme</span>
+
+        <h2 id="totalPrice">0,00 €</h2>
+
+    </div>
+
+    <button id="saveButton">
+        Tag speichern
+    </button>
+
+</footer>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
