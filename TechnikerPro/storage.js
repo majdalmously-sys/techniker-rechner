@@ -104,17 +104,74 @@ function renderHistory() {
 function showDay(index) {
 
     const history = getHistory();
-
     const day = history[index];
 
-    let text = day.date + "\n\n";
+    const detailsModal = document.getElementById("detailsModal");
+    const detailsContent = document.getElementById("detailsContent");
+    const closeDetails = document.getElementById("closeDetails");
+
+    let html = `
+        <h3>${day.date}</h3>
+        <hr>
+    `;
 
     day.entries.forEach(job => {
-        text += `${job.name} x${job.qty}\n`;
+
+        html += `
+            <div class="detail-row">
+                <span>${job.name}</span>
+                <strong>x${job.qty}</strong>
+            </div>
+        `;
+
     });
 
-    text += "\n-----------------\n";
-    text += `Gesamt: ${day.total.toFixed(2)} €`;
+    html += `
+        <hr>
 
-    alert(text);
+        <h2 class="day-total">
+            Gesamt: ${day.total.toFixed(2)} €
+        </h2>
+
+        <button class="delete-day"
+                onclick="deleteDay(${index})">
+
+            Tag löschen
+
+        </button>
+    `;
+
+    detailsContent.innerHTML = html;
+
+    detailsModal.classList.remove("hidden");
+
+    closeDetails.onclick = () => {
+
+        detailsModal.classList.add("hidden");
+
+    };
+
+}
+function deleteDay(index){
+
+    if(!confirm("Diesen Tag wirklich löschen?")){
+        return;
+    }
+
+    const history = getHistory();
+
+    history.splice(index,1);
+
+    localStorage.setItem(
+        "history",
+        JSON.stringify(history)
+    );
+
+    document
+        .getElementById("detailsModal")
+        .classList
+        .add("hidden");
+
+    renderHistory();
+
 }
