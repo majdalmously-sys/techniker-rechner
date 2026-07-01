@@ -1,49 +1,120 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Techniker Rechner</title>
 
-    <link rel="stylesheet" href="style.css">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Techniker Rechner Pro</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
 <header class="header">
-    <h1>Techniker Rechner</h1>
-    <p>FTTH Tageserfassung</p>
+
+<h1>Techniker Rechner Pro</h1>
+
+<p id="today"></p>
+
 </header>
 
-<div class="container">
+<main class="container">
 
-    <input
-        id="search"
-        type="text"
-        placeholder="Tätigkeit suchen..."
-    >
+<input
+id="search"
+type="text"
+placeholder="Tätigkeit suchen..."
+>
 
-    <div id="jobList"></div>
+<div id="jobList"></div>
 
-</div>
+</main>
 
 <footer>
 
-    <div class="total">
+<div class="totalBox">
 
-        <span>Gesamtsumme</span>
+<span>Gesamtsumme</span>
 
-        <h2 id="totalPrice">0,00 €</h2>
+<strong id="totalPrice">0.00 €</strong>
 
-    </div>
+</div>
 
-    <button id="saveButton">
-        Tag speichern
-    </button>
+<div class="buttons">
+
+<button id="historyButton">
+
+Verlauf
+
+</button>
+
+<button id="clearButton">
+
+Alles löschen
+
+</button>
+
+<button id="saveButton">
+
+Tag speichern
+
+</button>
+
+</div>
 
 </footer>
 
+<!-- Verlauf -->
+
+<div id="historyModal" class="modal hidden">
+
+<div class="modal-content">
+
+<h2>Gespeicherte Tage</h2>
+
+<div id="historyList"></div>
+
+<button id="closeHistory">
+
+Schließen
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Details -->
+
+<div id="detailsModal" class="modal hidden">
+
+<div class="modal-content">
+
+<h2>Tag Details</h2>
+
+<div id="detailsContent"></div>
+
+<button id="closeDetails">
+
+Schließen
+
+</button>
+
+</div>
+
+</div>
+
 <script src="data.js"></script>
-<script src="script.js"></script>
+
+<script src="storage.js"></script>
+
+<script src="app.js"></script>
 
 </body>
+
 </html>
