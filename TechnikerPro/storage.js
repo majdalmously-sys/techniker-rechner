@@ -140,13 +140,7 @@ function showDay(index) {
 
     </button>
 
-    <button class="delete-day"
-            onclick="deleteDay(${index})">
-
-        🗑️ Tag löschen
-
-    </button>
-`;
+  
 
     detailsContent.innerHTML = html;
 
