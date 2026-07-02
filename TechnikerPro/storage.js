@@ -148,14 +148,6 @@ function showDay(index) {
     </button>
 `;
 
-<button class="delete-day"
-        onclick="deleteDay(${index})">
-
-    Tag löschen
-
-</button>
-    `;
-
     detailsContent.innerHTML = html;
 
     detailsModal.classList.remove("hidden");
@@ -167,9 +159,6 @@ function showDay(index) {
     };
 
 }
-function editDay(index){
-
-    alert("Bearbeiten kommt im nächsten Schritt.");
 
 }
 function deleteDay(index){
