@@ -127,18 +127,33 @@ function showDay(index) {
     });
 
     html += `
-        <hr>
+    <hr>
 
-        <h2 class="day-total">
-            Gesamt: ${day.total.toFixed(2)} €
-        </h2>
+    <h2 class="day-total">
+        Gesamt: ${day.total.toFixed(2)} €
+    </h2>
 
-        <button class="delete-day"
-                onclick="deleteDay(${index})">
+    <button class="edit-day"
+            onclick="editDay(${index})">
 
-            Tag löschen
+        ✏️ Bearbeiten
 
-        </button>
+    </button>
+
+    <button class="delete-day"
+            onclick="deleteDay(${index})">
+
+        🗑️ Tag löschen
+
+    </button>
+`;
+
+<button class="delete-day"
+        onclick="deleteDay(${index})">
+
+    Tag löschen
+
+</button>
     `;
 
     detailsContent.innerHTML = html;
@@ -150,6 +165,11 @@ function showDay(index) {
         detailsModal.classList.add("hidden");
 
     };
+
+}
+function editDay(index){
+
+    alert("Bearbeiten kommt im nächsten Schritt.");
 
 }
 function deleteDay(index){
@@ -173,5 +193,12 @@ function deleteDay(index){
         .add("hidden");
 
     renderHistory();
+
+}
+    function editDay(index){
+
+    console.log("Edit:", index);
+
+    alert("Bearbeiten wird jetzt gebaut 😉");
 
 }
