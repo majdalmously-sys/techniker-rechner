@@ -125,7 +125,8 @@ function showDay(index) {
         `;
 
     });
-html += `
+
+    html += `
     <hr>
 
     <h2 class="day-total">
@@ -134,21 +135,70 @@ html += `
 
     <button class="edit-day"
             onclick="editDay(${index})">
+
         ✏️ Bearbeiten
+
     </button>
 
     <button class="delete-day"
             onclick="deleteDay(${index})">
+
         🗑️ Tag löschen
+
     </button>
 `;
 
-detailsContent.innerHTML = html;
+<button class="delete-day"
+        onclick="deleteDay(${index})">
 
-detailsModal.classList.remove("hidden");
+    Tag löschen
 
-closeDetails.onclick = () => {
-    detailsModal.classList.add("hidden");
-};
+</button>
+    `;
+
+    detailsContent.innerHTML = html;
+
+    detailsModal.classList.remove("hidden");
+
+    closeDetails.onclick = () => {
+
+        detailsModal.classList.add("hidden");
+
+    };
+
+}
+function editDay(index){
+
+    alert("Bearbeiten kommt im nächsten Schritt.");
+
+}
+function deleteDay(index){
+
+    if(!confirm("Diesen Tag wirklich löschen?")){
+        return;
+    }
+
+    const history = getHistory();
+
+    history.splice(index,1);
+
+    localStorage.setItem(
+        "history",
+        JSON.stringify(history)
+    );
+
+    document
+        .getElementById("detailsModal")
+        .classList
+        .add("hidden");
+
+    renderHistory();
+
+}
+    function editDay(index){
+
+    console.log("Edit:", index);
+
+    alert("Bearbeiten wird jetzt gebaut 😉");
 
 }
