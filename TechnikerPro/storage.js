@@ -127,18 +127,26 @@ function showDay(index) {
     });
 
     html += `
-        <hr>
+    <hr>
 
-        <h2 class="day-total">
-            Gesamt: ${day.total.toFixed(2)} €
-        </h2>
+    <h2 class="day-total">
+        Gesamt: ${day.total.toFixed(2)} €
+    </h2>
 
-       <button class="edit-day"
-        onclick="editDay(${index})">
+    <button class="edit-day"
+            onclick="editDay(${index})">
 
-    Bearbeiten
+        ✏️ Bearbeiten
 
-</button>
+    </button>
+
+    <button class="delete-day"
+            onclick="deleteDay(${index})">
+
+        🗑️ Tag löschen
+
+    </button>
+`;
 
 <button class="delete-day"
         onclick="deleteDay(${index})">
@@ -185,5 +193,12 @@ function deleteDay(index){
         .add("hidden");
 
     renderHistory();
+
+}
+    function editDay(index){
+
+    console.log("Edit:", index);
+
+    alert("Bearbeiten wird jetzt gebaut 😉");
 
 }
