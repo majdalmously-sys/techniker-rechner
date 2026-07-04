@@ -46,6 +46,14 @@ function saveCurrentDay() {
         total: total
     };
 
+   if (editingIndex !== null) {
+
+    history[editingIndex] = dayData;
+
+    editingIndex = null;
+
+} else {
+
     const index = history.findIndex(day => day.date === today);
 
     if (index >= 0) {
@@ -61,6 +69,8 @@ function saveCurrentDay() {
         history.push(dayData);
 
     }
+
+}
 
     saveHistory(history);
 
@@ -188,6 +198,8 @@ function showDay(index) {
 
 
 function editDay(index){
+
+    alert("editDay works");
 
     const history = getHistory();
 
