@@ -162,7 +162,7 @@ function showDay(index) {
         <button class="edit-day"
             onclick="editDay(${index})">
 
-            🔥 TEST BUTTON
+✏️ Bearbeiten
 
         </button>
 
