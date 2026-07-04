@@ -199,13 +199,19 @@ function showDay(index) {
 
 function editDay(index){
 
-    alert("editDay works");
+    alert("1");
 
     const history = getHistory();
 
+    alert("2");
+
     editingIndex = index;
 
+    alert("3");
+
     loadDayForEdit(history[index]);
+
+    alert("4");
 
     document
         .getElementById("detailsModal")
