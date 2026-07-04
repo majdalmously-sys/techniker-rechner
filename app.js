@@ -6,7 +6,7 @@ const search = document.getElementById("search");
 const today = document.getElementById("today");
 
 const counts = {};
-
+let editingIndex = null;
 today.textContent = new Date().toLocaleDateString("de-DE");
 
 function render(filter = "") {
@@ -135,6 +135,23 @@ document.getElementById("clearButton").addEventListener("click", () => {
 
 });
 render();
+function loadDayForEdit(day){
+
+    // تصفير كل الكميات
+    jobs.forEach(job => {
+        counts[job.id] = 0;
+    });
+
+    // تحميل بيانات اليوم
+    day.entries.forEach(entry => {
+        counts[entry.id] = entry.qty;
+    });
+
+    calculate();
+    render(search.value);
+
+}
+/*
 if ("serviceWorker" in navigator) {
 
     window.addEventListener("load", () => {
@@ -142,5 +159,20 @@ if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("service-worker.js");
 
     });
+
+}
+*/
+function loadDayForEdit(day){
+
+    jobs.forEach(job=>{
+        counts[job.id]=0;
+    });
+
+    day.entries.forEach(entry=>{
+        counts[entry.id]=entry.qty;
+    });
+
+    render(search.value);
+    calculate();
 
 }
