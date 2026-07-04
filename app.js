@@ -138,18 +138,18 @@ document.getElementById("clearButton").addEventListener("click", () => {
 render();
 function loadDayForEdit(day){
 
-    // تصفير كل الكميات
-    jobs.forEach(job => {
-        counts[job.id] = 0;
+    alert(JSON.stringify(day));
+
+    jobs.forEach(job=>{
+        counts[job.id]=0;
     });
 
-    // تحميل بيانات اليوم
-    day.entries.forEach(entry => {
-        counts[entry.id] = entry.qty;
+    day.entries.forEach(entry=>{
+        counts[entry.id]=entry.qty;
     });
 
-    calculate();
     render(search.value);
+    calculate();
 
 }
 /*
