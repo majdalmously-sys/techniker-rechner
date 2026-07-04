@@ -1,11 +1,14 @@
-alert("NEW STORAGE");
 function getHistory() {
     return JSON.parse(localStorage.getItem("history")) || [];
 }
 
+function saveHistory(history) {
+    localStorage.setItem("history", JSON.stringify(history));
+}
+
 function saveCurrentDay() {
 
-    let history = getHistory();
+    const history = getHistory();
 
     let entries = [];
     let total = 0;
@@ -47,11 +50,11 @@ function saveCurrentDay() {
 
     if (index >= 0) {
 
-        if (confirm("Für dieses Datum gibt es bereits einen Eintrag.\nMöchtest du ihn ersetzen?")) {
-            history[index] = dayData;
-        } else {
+        if (!confirm("Für dieses Datum existiert bereits ein Eintrag.\nErsetzen?")) {
             return;
         }
+
+        history[index] = dayData;
 
     } else {
 
@@ -59,9 +62,10 @@ function saveCurrentDay() {
 
     }
 
-    localStorage.setItem("history", JSON.stringify(history));
+    saveHistory(history);
 
     alert("Tag erfolgreich gespeichert.");
+
 }
 
 function renderHistory() {
@@ -73,8 +77,12 @@ function renderHistory() {
     const history = getHistory();
 
     if (history.length === 0) {
-        historyList.innerHTML = "<p>Keine gespeicherten Tage.</p>";
+
+        historyList.innerHTML =
+            "<p>Keine gespeicherten Tage.</p>";
+
         return;
+
     }
 
     let monthTotal = 0;
@@ -85,12 +93,17 @@ function renderHistory() {
 
         historyList.innerHTML += `
             <div class="history-item">
+
                 <strong>${day.date}</strong><br>
+
                 Gesamt: ${day.total.toFixed(2)} €
+
                 <br><br>
+
                 <button onclick="showDay(${index})">
                     Anzeigen
                 </button>
+
             </div>
         `;
 
@@ -98,8 +111,12 @@ function renderHistory() {
 
     historyList.innerHTML += `
         <hr>
-        <h3>Monatsgesamt: ${monthTotal.toFixed(2)} €</h3>
+        <h3>
+            Monatsgesamt:
+            ${monthTotal.toFixed(2)} €
+        </h3>
     `;
+
 }
 
 function showDay(index) {
@@ -107,9 +124,14 @@ function showDay(index) {
     const history = getHistory();
     const day = history[index];
 
-    const detailsModal = document.getElementById("detailsModal");
-    const detailsContent = document.getElementById("detailsContent");
-    const closeDetails = document.getElementById("closeDetails");
+    const detailsModal =
+        document.getElementById("detailsModal");
+
+    const detailsContent =
+        document.getElementById("detailsContent");
+
+    const closeDetails =
+        document.getElementById("closeDetails");
 
     let html = `
         <h3>${day.date}</h3>
@@ -120,8 +142,11 @@ function showDay(index) {
 
         html += `
             <div class="detail-row">
+
                 <span>${job.name}</span>
+
                 <strong>x${job.qty}</strong>
+
             </div>
         `;
 
@@ -135,13 +160,17 @@ function showDay(index) {
         </h2>
 
         <button class="edit-day"
-                onclick="editDay(${index})">
-            ✏️ Bearbeiten
+            onclick="editDay(${index})">
+
+✏️ Bearbeiten
+
         </button>
 
         <button class="delete-day"
-                onclick="deleteDay(${index})">
+            onclick="deleteDay(${index})">
+
             🗑️ Tag löschen
+
         </button>
     `;
 
@@ -150,36 +179,25 @@ function showDay(index) {
     detailsModal.classList.remove("hidden");
 
     closeDetails.onclick = () => {
+
         detailsModal.classList.add("hidden");
+
     };
 
 }
+
+
 function editDay(index){
-
-    alert("Bearbeiten kommt als Nächstes 🙂");
-
-}
-
-function deleteDay(index){
-
-    if(!confirm("Diesen Tag wirklich löschen?")){
-        return;
-    }
 
     const history = getHistory();
 
-    history.splice(index,1);
+    editingIndex = index;
 
-    localStorage.setItem(
-        "history",
-        JSON.stringify(history)
-    );
+    loadDayForEdit(history[index]);
 
     document
         .getElementById("detailsModal")
         .classList
         .add("hidden");
-
-    renderHistory();
 
 }

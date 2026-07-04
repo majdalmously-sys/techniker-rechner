@@ -6,7 +6,7 @@ const search = document.getElementById("search");
 const today = document.getElementById("today");
 
 const counts = {};
-let editingIndex = null;
+console.log("APP VERSION 2026-07-04");
 let editingIndex = null;
 today.textContent = new Date().toLocaleDateString("de-DE");
 
@@ -163,31 +163,3 @@ if ("serviceWorker" in navigator) {
 
 }
 */
-function loadDayForEdit(day){
-
-    jobs.forEach(job=>{
-        counts[job.id]=0;
-    });
-
-    day.entries.forEach(entry=>{
-        counts[entry.id]=entry.qty;
-    });
-
-    render(search.value);
-    calculate();
-
-}
-
-function loadDayForEdit(day) {
-
-    jobs.forEach(job => {
-        counts[job.id] = 0;
-    });
-
-    day.entries.forEach(entry => {
-        counts[entry.id] = entry.qty;
-    });
-
-    render(search.value);
-
-}
