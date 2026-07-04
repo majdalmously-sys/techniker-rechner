@@ -192,23 +192,17 @@ function editDay(index) {
 
 }
 
-function deleteDay(index) {
-
-    if (!confirm("Diesen Tag wirklich löschen?")) {
-        return;
-    }
+function editDay(index){
 
     const history = getHistory();
 
-    history.splice(index, 1);
+    editingIndex = index;
 
-    saveHistory(history);
+    loadDayForEdit(history[index]);
 
     document
         .getElementById("detailsModal")
         .classList
         .add("hidden");
-
-    renderHistory();
 
 }
