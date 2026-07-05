@@ -138,8 +138,6 @@ document.getElementById("clearButton").addEventListener("click", () => {
 render();
 function loadDayForEdit(day){
 
-    alert(JSON.stringify(day));
-
     jobs.forEach(job=>{
         counts[job.id]=0;
     });
