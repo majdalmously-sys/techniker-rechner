@@ -56,6 +56,14 @@ placeholder="Tätigkeit suchen..."
 
 <div class="buttons">
 
+<button id="backupButton">
+    💾 Backup
+</button>
+
+<button id="restoreButton">
+    📂 Restore
+</button>
+
 <button id="historyButton">
 
 Verlauf
@@ -114,6 +122,12 @@ Schließen
 
 </div>
 
+<input
+    type="file"
+    id="restoreFile"
+    accept=".json"
+    style="display:none"
+>
 <script src="data.js"></script>
 <script src="storage.js"></script>
 <script src="app.js"></script>

@@ -215,3 +215,100 @@ function editDay(index){
         .add("hidden");
 
 }
+
+document.getElementById("backupButton").addEventListener("click", () => {
+
+    const history = getHistory();
+
+    const backup = {
+        version: "3.0",
+        created: new Date().toISOString(),
+        history: history
+    };
+
+    const blob = new Blob(
+        [JSON.stringify(backup, null, 2)],
+        { type: "application/json" }
+    );
+
+    const link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+
+    link.download = `techniker-backup-${new Date().toISOString().slice(0,10)}.json`;
+
+    link.click();
+
+    URL.revokeObjectURL(link.href);
+
+});
+
+const restoreInput = document.getElementById("restoreFile");
+
+document.getElementById("restoreButton").addEventListener("click", () => {
+    restoreInput.click();
+});
+
+restoreInput.addEventListener("change", (event) => {
+
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+
+        try {
+
+            const backup = JSON.parse(e.target.result);
+
+            if (!backup.history || !Array.isArray(backup.history)) {
+                alert("❌ Ungültige Sicherungsdatei.");
+                return;
+            }
+
+            if (!confirm("Alle aktuellen Daten werden ersetzt.\nFortfahren?")) {
+                return;
+            }
+
+saveHistory(backup.history);
+
+            alert("✅ Sicherung erfolgreich wiederhergestellt.");
+
+            location.reload();
+
+        } catch (err) {
+
+            alert("❌ Fehler beim Lesen der Sicherungsdatei.");
+
+        }
+
+    };
+
+    reader.readAsText(file);
+
+    restoreInput.value = "";
+
+});
+
+function deleteDay(index){
+
+    const history = getHistory();
+
+    if(!confirm("Diesen Tag wirklich löschen?")){
+        return;
+    }
+
+    history.splice(index,1);
+
+    saveHistory(history);
+
+    document
+        .getElementById("detailsModal")
+        .classList
+        .add("hidden");
+
+    renderHistory();
+
+}
