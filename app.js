@@ -9,6 +9,9 @@ const counts = {};
 console.log("APP VERSION 2026-07-04");
 let editingIndex = null;
 today.textContent = new Date().toLocaleDateString("de-DE");
+const workDate = document.getElementById("workDate");
+
+workDate.value = new Date().toISOString().split("T")[0];
 
 function render(filter = "") {
 
