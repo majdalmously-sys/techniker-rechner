@@ -38,10 +38,12 @@ function saveCurrentDay() {
         return;
     }
 
-    const dayData = {
+  const selectedDate = document.getElementById("workDate").value;
+
+const dayData = {
     date: editingIndex !== null
         ? history[editingIndex].date
-        : new Date().toLocaleDateString("de-DE"),
+        : selectedDate,
 
     entries: entries,
     total: total
@@ -55,8 +57,9 @@ function saveCurrentDay() {
 
 } else {
 
-    const index = history.findIndex(day => day.date === today);
+const selectedDate = document.getElementById("workDate").value;
 
+const index = history.findIndex(day => day.date === selectedDate);
     if (index >= 0) {
 
         if (!confirm("Für dieses Datum existiert bereits ein Eintrag.\nErsetzen?")) {
