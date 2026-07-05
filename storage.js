@@ -38,13 +38,14 @@ function saveCurrentDay() {
         return;
     }
 
-    const today = new Date().toLocaleDateString("de-DE");
-
     const dayData = {
-        date: today,
-        entries: entries,
-        total: total
-    };
+    date: editingIndex !== null
+        ? history[editingIndex].date
+        : new Date().toLocaleDateString("de-DE"),
+
+    entries: entries,
+    total: total
+};
 
    if (editingIndex !== null) {
 
