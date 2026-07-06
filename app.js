@@ -164,3 +164,28 @@ if ("serviceWorker" in navigator) {
 
 }
 */
+
+window.addEventListener("load", () => {
+
+    setTimeout(() => {
+
+        document.getElementById("splash").classList.add("hiddenSplash");
+
+    }, 2000);
+
+});
+
+const menuButton = document.getElementById("menuButton");
+const menu = document.getElementById("menu");
+
+if (menuButton && menu) {
+    menuButton.onclick = () => {
+        menu.classList.toggle("hidden");
+    };
+
+    document.addEventListener("click", (e) => {
+        if (!menu.contains(e.target) && e.target !== menuButton) {
+            menu.classList.add("hidden");
+        }
+    });
+}
