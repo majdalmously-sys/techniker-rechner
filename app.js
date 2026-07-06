@@ -165,16 +165,6 @@ if ("serviceWorker" in navigator) {
 }
 */
 
-window.addEventListener("load", () => {
-
-    setTimeout(() => {
-
-        document.getElementById("splash").classList.add("hiddenSplash");
-
-    }, 2000);
-
-});
-
 const menuButton = document.getElementById("menuButton");
 const menu = document.getElementById("menu");
 
