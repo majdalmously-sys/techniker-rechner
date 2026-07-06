@@ -38,48 +38,70 @@ body{
 }
 
 .job{
-    background:#ffffff;
-    border-radius:20px;
-    padding:20px;
-    margin-bottom:20px;
+    background:#fff;
+    border-radius:18px;
+   padding:16px;
+   margin-bottom:15px;
 
-    border:1px solid #eef2f7;
+    border:1px solid #e8eef7;
 
-    box-shadow:
-        0 8px 24px rgba(0,0,0,.06);
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
 
-    transition:all .25s ease;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.job:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px rgba(0,0,0,.12);
 }
 
 .job h3{
-    font-size:28px;
+    font-size:24px;
     font-weight:700;
-    margin-bottom:10px;
+margin-bottom:8px;
     color:#222;
 }
 
 .price{
+    display:inline-block;
+
+    background:#e8f1ff;
+
     color:#1565C0;
-    font-size:22px;
+
+font-size:16px;
+
     font-weight:700;
-    margin-bottom:16px;
+
+padding:5px 10px;
+
+    border-radius:999px;
+
+    margin-bottom:15px;
 }
 
 .amount{
     width:100%;
     padding:14px 16px;
 
-    border:2px solid #e5e7eb;
-    border-radius:14px;
+font-size:20px;
 
-    font-size:18px;
     font-weight:600;
+
+    border:2px solid #d9e6f7;
+
+    border-radius:14px;
 
     outline:none;
 
-    transition:.25s;
+    transition:.2s;
+}
 
-    margin-bottom:15px;
+.amount:focus{
+    border-color:#1565C0;
+    box-shadow:0 0 0 4px rgba(21,101,192,.15);
 }
 
 .amount:focus{
@@ -115,18 +137,26 @@ footer{
 }
 
 .buttons{
-    display:flex;
-    gap:10px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-top:20px;
 }
 
 .buttons button{
-    flex:1;
-    padding:12px;
+    padding:15px;
     border:none;
-    border-radius:10px;
+    border-radius:14px;
     cursor:pointer;
     color:white;
-    font-size:15px;
+    font-size:16px;
+    font-weight:600;
+    transition:.25s;
+}
+
+.buttons button:hover{
+    transform:translateY(-2px);
+    opacity:.9;
 }
 
 #historyButton{
@@ -135,6 +165,7 @@ footer{
 
 #saveButton{
     background:#2E7D32;
+    grid-column:1 / -1;
 }
 
 #clearButton{
