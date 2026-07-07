@@ -179,3 +179,37 @@ if (menuButton && menu) {
         }
     });
 }
+
+// ===== Menu Actions =====
+
+document.getElementById("historyBtn").addEventListener("click", () => {
+
+    document.getElementById("historyButton").click();
+
+    menu.classList.add("hidden");
+
+});
+
+document.getElementById("backupBtn").addEventListener("click", () => {
+
+    document.getElementById("backupButton").click();
+
+    menu.classList.add("hidden");
+
+});
+
+document.getElementById("restoreBtn").addEventListener("click", () => {
+
+    document.getElementById("restoreButton").click();
+
+    menu.classList.add("hidden");
+
+});
+
+document.getElementById("clearBtn").addEventListener("click", () => {
+
+    document.getElementById("clearButton").click();
+
+    menu.classList.add("hidden");
+
+});

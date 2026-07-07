@@ -164,8 +164,36 @@ footer{
 }
 
 #saveButton{
-    background:#2E7D32;
+    background:linear-gradient(135deg,#2E7D32,#43A047);
+
+    color:white;
+
+    border:none;
+
+    border-radius:16px;
+
+    padding:16px;
+
+    font-size:18px;
+
+    font-weight:700;
+
     grid-column:1 / -1;
+
+    box-shadow:0 8px 20px rgba(46,125,50,.35);
+
+    transition:
+        transform .2s,
+        box-shadow .2s;
+}
+
+#saveButton:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 24px rgba(46,125,50,.45);
+}
+
+#saveButton:active{
+    transform:scale(.98);
 }
 
 #clearButton{
@@ -585,4 +613,11 @@ text-shadow:0 4px 12px rgba(0,0,0,.25);
 
     display:none;
 
+}
+
+#backupButton,
+#restoreButton,
+#historyButton,
+#clearButton{
+    display:none;
 }
