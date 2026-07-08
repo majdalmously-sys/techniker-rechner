@@ -1,4 +1,4 @@
-const CACHE_NAME = "techniker-pro-v3";
+const CACHE_NAME = "techniker-pro-v5";
 
 const FILES = [
   "./",

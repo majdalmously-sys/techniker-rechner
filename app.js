@@ -165,14 +165,19 @@ if ("serviceWorker" in navigator) {
 }
 */
 
+// ===== app.js (قسم الأحداث والتشغيل الموحد) =====
+
+// 1. تفعيل فتح وإغلاق قائمة الثلاث نقاط
 const menuButton = document.getElementById("menuButton");
 const menu = document.getElementById("menu");
 
 if (menuButton && menu) {
-    menuButton.onclick = () => {
+    menuButton.onclick = (e) => {
+        e.stopPropagation(); // منع إغلاق القائمة فوراً عند الضغط على الزر نفسه
         menu.classList.toggle("hidden");
     };
 
+    // إغلاق القائمة عند الضغط في أي مكان خارجها
     document.addEventListener("click", (e) => {
         if (!menu.contains(e.target) && e.target !== menuButton) {
             menu.classList.add("hidden");
@@ -180,36 +185,100 @@ if (menuButton && menu) {
     });
 }
 
-// ===== Menu Actions =====
-
-document.getElementById("historyBtn").addEventListener("click", () => {
-
-    document.getElementById("historyButton").click();
-
-    menu.classList.add("hidden");
-
-});
-
+// 2. ربط أزرار القائمة (الثلاث نقاط) بالوظائف الصحيحة
 document.getElementById("backupBtn").addEventListener("click", () => {
+    const history = getHistory();
+    const backup = {
+        version: "3.0",
+        created: new Date().toISOString(),
+        history: history
+    };
 
-    document.getElementById("backupButton").click();
-
-    menu.classList.add("hidden");
-
+    const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `techniker-backup-${new Date().toISOString().slice(0,10)}.json`;
+    link.click();
+    URL.revokeObjectURL(link.href);
 });
 
+const restoreInput = document.getElementById("restoreFile");
 document.getElementById("restoreBtn").addEventListener("click", () => {
-
-    document.getElementById("restoreButton").click();
-
-    menu.classList.add("hidden");
-
+    restoreInput.click();
 });
 
+restoreInput.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const backup = JSON.parse(e.target.result);
+            if (!backup.history || !Array.isArray(backup.history)) {
+                alert("❌ Ungültige Sicherungsdatei.");
+                return;
+            }
+
+            if (!confirm("Alle aktuellen Daten werden ersetzt.\nFortfahren?")) {
+                return;
+            }
+
+            saveHistory(backup.history);
+            alert("✅ Sicherung erfolgreich wiederhergestellt.");
+            location.reload();
+        } catch (err) {
+            alert("❌ Fehler beim Lesen der Sicherungsdatei.");
+        }
+    };
+    reader.readAsText(file);
+    restoreInput.value = "";
+});
+
+// زر السجل (Verlauf) من القائمة العلوية
+document.getElementById("historyBtn").addEventListener("click", () => {
+    renderHistory();
+    document.getElementById("historyModal").classList.remove("hidden");
+    menu.classList.add("hidden"); // إغلاق القائمة بعد الفتح
+});
+
+// زر حذف الكل (Alles löschen) من القائمة العلوية
 document.getElementById("clearBtn").addEventListener("click", () => {
-
-    document.getElementById("clearButton").click();
-
+    if (!confirm("Möchtest du wirklich alles löschen?")) return;
+    jobs.forEach(job => {
+        counts[job.id] = 0;
+    });
+    calculate();
+    render(search.value);
     menu.classList.add("hidden");
-
 });
+
+
+// 3. ربط أزرار الأسفل (Footer)
+document.getElementById("saveButton").addEventListener("click", () => {
+    saveCurrentDay();
+});
+
+document.getElementById("historyButton").addEventListener("click", () => {
+    renderHistory();
+    document.getElementById("historyModal").classList.remove("hidden");
+});
+
+document.getElementById("clearButton").addEventListener("click", () => {
+    if (!confirm("Möchtest du wirklich alles löschen?")) return;
+    jobs.forEach(job => {
+        counts[job.id] = 0;
+    });
+    calculate();
+    render(search.value);
+});
+
+
+// 4. تفعيل الـ Service Worker للعمل بدون إنترنت (Offline Mode) بشكل رسمي
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("service-worker.js")
+            .then(reg => console.log("Service Worker successfully registered!", reg.scope))
+            .catch(err => console.error("Service Worker registration failed:", err));
+    });
+}

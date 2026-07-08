@@ -7,6 +7,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Techniker Rechner Pro</title>
 
 <link rel="stylesheet" href="style.css">
@@ -78,50 +80,22 @@ placeholder="Tätigkeit suchen..."
 </main>
 
 <footer>
+    <div class="totalBox">
+        <span>Gesamtsumme</span>
+        <strong id="totalPrice">0.00 €</strong>
+    </div>
 
-<div class="totalBox">
+    <div class="date-box">
+        <label for="workDate">📅 Arbeitsdatum</label>
+        <input type="date" id="workDate">
+    </div>
 
-<span>Gesamtsumme</span>
-
-<strong id="totalPrice">0.00 €</strong>
-
-</div>
-
-<div class="date-box">
-    <label for="workDate">📅 Arbeitsdatum</label>
-    <input type="date" id="workDate">
-</div>
-
-<div class="buttons">
-
-<button id="backupButton">
-    💾 Backup
-</button>
-
-<button id="restoreButton">
-    📂 Restore
-</button>
-
-<button id="historyButton">
-
-Verlauf
-
-</button>
-
-<button id="clearButton">
-
-Alles löschen
-
-</button>
-
-<button id="saveButton">
-
-Tag speichern
-
-</button>
-
-</div>
-
+    <div class="buttons">
+        <button id="historyButton">📊 Verlauf</button>
+        <button id="clearButton">🗑️ Alles löschen</button>
+        <button id="saveButton">💾 Tag speichern</button>
+    </div>
+    
 </footer>
 
 <!-- Verlauf -->
