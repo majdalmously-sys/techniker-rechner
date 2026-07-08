@@ -282,3 +282,61 @@ if ("serviceWorker" in navigator) {
             .catch(err => console.error("Service Worker registration failed:", err));
     });
 }
+
+// ===== كود استقبال ومزامنة البيانات تلقائياً من نظام Kasys =====
+function checkIncomingDataFromKasys() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const incomingData = urlParams.get('data');
+
+    if (incomingData) {
+        try {
+            // فك تشفير البيانات القادمة وتحويلها لمصفوفة خدمات
+            const detectedServices = JSON.parse(decodeURIComponent(incomingData));
+            
+            if (Array.isArray(detectedServices) && detectedServices.length > 0) {
+                // مسح الاختيارات القديمة لكي لا تختلط البيانات
+                clearAllInputs(); 
+
+                let matchedCount = 0;
+
+                // مطابقة النصوص القادمة مع الخدمات الموجودة في ملف data.js الخاص بك
+                detectedServices.forEach(serviceText => {
+                    // البحث عن الخدمة في تطبيقك التي يتطابق اسمها مع نص Kasys
+                    const matchedJob = jobs.find(job => 
+                        serviceText.toLowerCase().includes(job.name.toLowerCase()) || 
+                        job.name.toLowerCase().includes(serviceText.toLowerCase())
+                    );
+
+                    if (matchedJob) {
+                        // إذا وجدنا الخدمة، نضع الكمية 1 تلقائياً ونفعلها
+                        const quantityInput = document.getElementById(`qty-${matchedJob.id}`);
+                        if (quantityInput) {
+                            quantityInput.value = 1;
+                            // استدعاء دالة التحديث المعتمدة في تطبيقك لحساب المجموع فوراً
+                            if (typeof updateTotals === 'function') { updateTotals(); }
+                            if (typeof saveState === 'function') { saveState(); }
+                            matchedCount++;
+                        }
+                    }
+                });
+
+                if (matchedCount > 0) {
+                    alert(`🎉 ممتاز! تم استيراد ونقل (${matchedCount}) خدمات من نظام Kasys إلى تطبيقك بنجاح!`);
+                } else {
+                    alert("⚠️ تم استقبال بيانات، ولكن لم تتطابق أسماء الخدمات مع الخدمات المخزنة في تطبيقك.");
+                }
+                
+                // تنظيف الرابط العلوي للمتصفح لكي لا تتكرر المزامنة عند تحديث الصفحة
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        } catch (e) {
+            console.error("خطأ في قراءة بيانات المزامنة:", e);
+        }
+    }
+}
+
+// تشغيل الفحص تلقائياً بمجرد فتح التطبيق
+document.addEventListener("DOMContentLoaded", () => {
+    // ننتظر قليلاً للتأكد من تحميل القائمة الأساسية أولاً
+    setTimeout(checkIncomingDataFromKasys, 500);
+});
