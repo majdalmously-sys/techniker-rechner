@@ -34,13 +34,17 @@ body{
 .brand{
     display: flex;
     align-items: center;
-    gap: 15px;
+    justify-content: center;
+    flex: 1;
+}
+
+.brand{
+    gap:0;
 }
 
 .logo{
-    width: 60px;
-    height: 60px;
-    border-radius: 16px;
+    width: 320px;
+    height: auto;
 }
 
 .brand h1{
